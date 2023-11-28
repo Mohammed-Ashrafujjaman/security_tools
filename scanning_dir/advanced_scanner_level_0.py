@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 
 from socket import *
-import optparse
+import optparse # will convert it to "argparse" 
 from threading import *
 from termcolor import colored
-import time
 
 def connScan(tgtHost,tgtPort):
 	try:
@@ -12,11 +11,6 @@ def connScan(tgtHost,tgtPort):
 		sock.settimeout(2)
 		sock.connect((tgtHost,tgtPort))
 		print(colored(f"[+] {tgtPort} tcp Open",'green'))
-		try:
-			output = sock.recv(1024).decode('utf-8').strip('\n') # if port is open then it might send some data back
-			print(colored(f"[++>] Port {tgtPort}: {output}",'blue'))
-		except:
-			print(colored(f"[-] No additional info for Port: {tgtPort}",'red'))
 	except:
 		print(colored(f"[-] {tgtPort} tcp Close",'red'))
 	finally:
@@ -33,22 +27,9 @@ def portScan(tgtHost, tgtPorts):
 	except:
 		print(f"[+] Scan Results for: {tgtHost}")
 	# settimeout(1)
-	thread_lists = []
-	# start_time = time.perf_counter()
 	for tgtPort in tgtPorts:
 		thrd = Thread(target=connScan, args = (tgtHost, int(tgtPort)))
 		thrd.start()
-		thrd.join() # This line in not conventional as it nullify the reasoning of threads but it keeps the results together.
-		# thread_lists.append(thrd)
-
-	# for thread in thread_lists:
-	# 	thread.join()
-	# for tgtPort in tgtPorts:
-	# 	connScan(tgtHost,tgtPort)
-
-	# finished_time = time.perf_counter()
-	# print(f"finished in {round(finished_time-start_time, 5)} second(s)")
-		
 
 def main():
 	parser = optparse.OptionParser('usage of program: ' +'-H <target host> -p <target port>')
@@ -64,3 +45,8 @@ def main():
 
 if __name__ == "__main__":
 	main()
+
+# limitation:
+# 1. can only scan port (straight forward)
+# 2. unable to distinguish filtered and closed port (shows close for filterd port)
+# 3. can scan multiple port but not range of port rather specific port given by user
