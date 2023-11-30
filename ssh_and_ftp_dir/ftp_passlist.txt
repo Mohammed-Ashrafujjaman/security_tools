@@ -1,0 +1,15 @@
+admin:admin
+admin:password
+admin:user123
+admin:password123
+admin:msfadmin
+administrator:administrator
+administrator:admin
+administrator:password123
+msfadmin:admin
+msfadmin:password
+msfadmin:password123
+msfadmin:msfadmin
+msfadmin:passwd123
+msfadmin:anonymous
+anonymous:anonymous
