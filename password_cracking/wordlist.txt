@@ -1,0 +1,10 @@
+admin
+root
+iloveyou
+password
+toor
+password123
+administrator
+hello
+world
+
